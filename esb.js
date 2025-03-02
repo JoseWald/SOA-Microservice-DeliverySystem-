@@ -3,19 +3,83 @@ const axios = require('axios');
 const app = express();
 app.use(express.json());
 
-app.get('/esb/user/:id', async (req, res) => {
-    const response = await axios.get(`http://localhost:3001/user/${req.params.id}`);
-    res.json(response.data);
+const PRODUCT_SERVICE_URL = 'http://localhost:3000/produits';
+
+/* 
+*Passer par l'ESB pour les produits
+*/
+//ajout d'un produit
+app.post('/esb/produits', async (req, res) => {
+    try {
+        const response = await axios.post(PRODUCT_SERVICE_URL, req.body);
+        res.json(response.data);
+    } catch (error) {
+        res.status(error.response?.status || 500).json({ message: 'Erreur lors de l’ajout' });
+    }
 });
 
-app.get('/esb/order/:id', async (req, res) => {
-    const response = await axios.get(`http://localhost:3002/order/${req.params.id}`);
-    res.json(response.data);
+//récupération de tous les produits
+app.get('/esb/produits', async (req, res) => {
+    try {
+        const response = await axios.get(PRODUCT_SERVICE_URL);
+        res.json(response.data);
+    } catch (error) {
+        res.status(error.response?.status || 500).json({ message: 'Erreur lors de la récupération' });
+    }
+});
+//update d'un produit
+app.put('/esb/produits/:id', async (req, res) => {
+    try {
+        const response = await axios.put(`${PRODUCT_SERVICE_URL}/${req.params.id}`, req.body);
+        res.json(response.data);
+    } catch (error) {
+        res.status(error.response?.status || 500).json({ message: 'Erreur lors de la mise à jour' });
+    }
+});
+//suppression d'un produit
+app.delete('/esb/produits/:id', async (req, res) => {
+    try {
+        const response = await axios.delete(`${PRODUCT_SERVICE_URL}/${req.params.id}`);
+        res.json(response.data);
+    } catch (error) {
+        res.status(error.response?.status || 500).json({ message: 'Erreur lors de la suppression' });
+    }
+});
+//delete all products
+app.delete('/esb/produits', async (req, res) => {
+    try {
+        const response = await axios.delete(PRODUCT_SERVICE_URL);
+        res.json(response.data);
+    } catch (error) {
+        res.status(error.response?.status || 500).json({ message: 'Erreur lors de la suppression' });
+    }
+});
+//rechercher un nom d'un produit
+app.get('/esb/produits/recherche', async (req, res) => {
+    try {
+        const response = await axios.get(`${PRODUCT_SERVICE_URL}/recherche`, { params: req.query });
+        res.json(response.data);
+    } catch (error) {
+        res.status(error.response?.status || 500).json({ message: 'Erreur lors de la recherche' });
+    }
 });
 
-app.post('/esb/pay', async (req, res) => {
-    const response = await axios.post('http://localhost:3003/pay', req.body);
+/*
+*Passer par l'ESB pour les livraisons
+*/
+//chercher un client qui a passé une commande
+app.get('/esb/livraisons/client/:nom', async (req, res) => {
+    const response = await axios.get(`http://localhost:3001/livraisons/client/${req.params.nom}`);
     res.json(response.data);
 });
-
+//supprimer une commande par ID
+app.delete('/esb/livraisons/:id', async (req, res) => {
+    const response = await axios.delete(`http://localhost:3001/livraisons/${req.params.id}`);
+    res.json(response.data);
+});
+//supprimer toutes les commandes
+app.delete('/esb/livraisons', async (req, res) => {
+    const response = await axios.delete('http://localhost:3001/livraisons');
+    res.json(response.data);
+});
 app.listen(4000, () => console.log("ESB en écoute sur le port 4000"));
