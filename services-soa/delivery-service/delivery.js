@@ -1,8 +1,17 @@
 
 const express = require('express');
-const app = express();
 const sqlite3 = require('sqlite3').verbose();
-const delivery = new sqlite3.Database('../db/deliveryDB.db');
+const app = express();
+const path = require('path');
+const dbPath = path.resolve(__dirname, '../../db/deliveryDB.db');
+const delivery = new sqlite3.Database(dbPath, (err) => {
+  if (err) {
+      console.error('Erreur d’ouverture de la base de données :', err.message);
+  } else {
+      console.log('Connexion réussie à la base de données SQLite.');
+  }
+});
+
 
 app.use(express.json());
 

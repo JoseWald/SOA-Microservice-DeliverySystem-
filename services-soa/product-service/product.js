@@ -9,7 +9,9 @@ const PORT = 3000;
 app.use(bodyParser.json());
 app.use(cors());
 
-const db = new sqlite3.Database('productDB.db', (err) => {
+const path = require('path');
+const dbPath = path.resolve(__dirname, '../../db/productDB.db');
+const db = new sqlite3.Database( dbPath, (err) => {
     if (err) console.error('Erreur lors de l’ouverture de la base de données:', err);
     else console.log('Connexion réussie à SQLite');
 });
