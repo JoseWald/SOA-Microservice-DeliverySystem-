@@ -14,7 +14,7 @@ Dans plusieurs terminaux, démarre chaque service :
 
 
     # Démarrer l’ESB
-    node esb.js
+    nodemon esb.js
 
 3-Tester l’architecture SOA
 # **API Gateway (ESB) - Documentation**
@@ -33,7 +33,8 @@ Les commandes pour tester chaque endpoint via **Postman** ou **cURL**.
 {
   "nom": "Laptop",
   "prix": 1200,
-  "stock": 10
+  "stock": 10,
+  "image": "chemin vers l'image"
 }
 ```
 
@@ -142,8 +143,13 @@ curl -X DELETE http://localhost:4000/esb/livraisons/1
 ```sh
 curl -X DELETE http://localhost:4000/esb/livraisons
 ```
+### **4. Get all commande**
+- **Méthode :** `GET`
+- **URL :** `http://localhost:4000/esb/livraisons/`
+- **Exemple avec cURL :**
+```sh
+curl -X GET http://localhost:4000/esb/livraisons/
 
----
 -----------------------------------------------------------------------------------------------------------------------------
 Microservice = serveur php qui permet au client de passer une commande
 Lisez son fichier readme pour  le tester

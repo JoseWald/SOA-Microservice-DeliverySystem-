@@ -1,8 +1,12 @@
+# lancer le serveur apache
+sudo systemctl start apache2
+
 # Lancer le serveur PHP (dans le dossier contenant ton script)
-php -S localhost:3001
+cd microservice
+php -S localhost:3002 -t
 
 # Tester l'ajout d'une commande via cURL
-curl -X POST http://localhost:3001/ \
+curl -X POST http://localhost:3002/livraisons \
      -H "Content-Type: application/json" \
      -d '{
         "client": "John Doe",
