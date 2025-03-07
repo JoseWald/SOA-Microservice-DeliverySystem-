@@ -8,6 +8,7 @@ const PORT = 3000;
 
 app.use(bodyParser.json());
 app.use(cors());
+app.use(express.json());
 
 const path = require('path');
 const dbPath = path.resolve(__dirname, '../../db/productDB.db');

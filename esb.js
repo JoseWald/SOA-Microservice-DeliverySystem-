@@ -1,7 +1,14 @@
 const express = require('express');
+const cors = require('cors');
 const axios = require('axios');
+const path = require('path');
 const app = express();
+
+app.use(cors());
 app.use(express.json());
+
+// Servir les fichiers statiques, mais empêcher l'affichage automatique d'index.html
+app.use(express.static('public', { index: false }));
 
 const PRODUCT_SERVICE_URL = 'http://localhost:3000/produits';
 const DELIVERY_SERVICE_URL = 'http://localhost:3001/livraisons';
@@ -67,13 +74,11 @@ app.get('/esb/produits/recherche', async (req, res) => {
     }
 });
 
-/* 
-*Passer par l'ESB pour les livraisons 
-*/
+/* Passer par l'ESB pour les livraisons */
 // Obtenir toutes les commandes de livraisons
 app.get('/esb/livraisons', async (req, res) => {
     try {
-        const response = await axios.get(`${DELIVERY_SERVICE_URL}/`);
+        const response = await axios.get(DELIVERY_SERVICE_URL);
         res.json(response.data);
     } catch (error) {
         res.status(error.response?.status || 500).json({ message: 'Erreur lors de la récupération des livraisons' });
@@ -108,6 +113,11 @@ app.delete('/esb/livraisons', async (req, res) => {
     } catch (error) {
         res.status(error.response?.status || 500).json({ message: 'Erreur lors de la suppression de toutes les commandes' });
     }
+});
+
+// Route par défaut pour éviter d'afficher index.html
+app.get('/', (req, res) => {
+    res.status(403).json({ message: 'Accès interdit' });
 });
 
 const PORT = 4000;

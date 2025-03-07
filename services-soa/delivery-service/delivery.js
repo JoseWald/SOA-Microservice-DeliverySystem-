@@ -4,6 +4,7 @@ const sqlite3 = require('sqlite3').verbose();
 const app = express();
 const path = require('path');
 const dbPath = path.resolve(__dirname, '../../db/deliveryDB.db');
+const cors = require('cors');
 const delivery = new sqlite3.Database(dbPath, (err) => {
   if (err) {
       console.error('Erreur d’ouverture de la base de données :', err.message);
@@ -12,7 +13,7 @@ const delivery = new sqlite3.Database(dbPath, (err) => {
   }
 });
 
-
+app.use(cors());
 app.use(express.json());
 
 // Lire toutes les livraisons

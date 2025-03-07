@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Produits et Livraisons</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto p-4">
+        <h1 class="text-3xl font-bold text-center mb-8">Gestion des Produits et Livraisons</h1>
+        
+        <!-- Section Produits -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Produits</h2>
+
+            <!-- Formulaire d'ajout de produit -->
+            <div class="mb-4 p-4 bg-white rounded-lg shadow-md">
+                <h3 class="text-xl font-bold mb-2">Ajouter un produit</h3>
+                <form id="add-product-form" class="space-y-2">
+                    <input type="text" id="product-name" placeholder="Nom du produit" class="w-full p-2 border rounded">
+                    <input type="number" id="product-price" placeholder="Prix" class="w-full p-2 border rounded">
+                    <input type="text" id="product-image" placeholder="URL de l'image" class="w-full p-2 border rounded">
+                    <button type="submit" class="w-full bg-blue-500 text-white p-2 rounded">Ajouter</button>
+                </form>
+            </div>
+
+            <!-- Formulaire de recherche de produit -->
+            <div class="mb-4 p-4 bg-white rounded-lg shadow-md">
+                <h3 class="text-xl font-bold mb-2">Rechercher un produit</h3>
+                <form id="search-product-form" class="space-y-2">
+                    <input type="text" id="search-product-name" placeholder="Nom du produit" class="w-full p-2 border rounded">
+                    <button type="submit" class="w-full bg-green-500 text-white p-2 rounded">Rechercher</button>
+                </form>
+            </div>
+
+            <!-- Liste des produits -->
+            <div id="product-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Les produits seront injectés ici par JavaScript -->
+            </div>
+        </div>
+
+        <!-- Section Livraisons -->
+        <div>
+            <h2 class="text-2xl font-semibold mb-4">Livraisons</h2>
+
+            <!-- Formulaire d'ajout de livraison -->
+            <div class="mb-4 p-4 bg-white rounded-lg shadow-md">
+                <h3 class="text-xl font-bold mb-2">Ajouter une livraison</h3>
+                <form id="add-delivery-form" class="space-y-2">
+                    <input type="text" id="delivery-client" placeholder="Nom du client" class="w-full p-2 border rounded">
+                    <input type="text" id="delivery-address" placeholder="Adresse" class="w-full p-2 border rounded">
+                    <input type="text" id="delivery-product" placeholder="Produit" class="w-full p-2 border rounded">
+                    <input type="number" id="delivery-quantity" placeholder="Quantité" class="w-full p-2 border rounded">
+                    <input type="text" id="delivery-status" placeholder="Statut" class="w-full p-2 border rounded">
+                    <button type="submit" class="w-full bg-blue-500 text-white p-2 rounded">Ajouter</button>
+                </form>
+            </div>
+
+            <!-- Formulaire de recherche de livraison par client -->
+            <div class="mb-4 p-4 bg-white rounded-lg shadow-md">
+                <h3 class="text-xl font-bold mb-2">Rechercher une livraison par client</h3>
+                <form id="search-delivery-form" class="space-y-2">
+                    <input type="text" id="search-delivery-client" placeholder="Nom du client" class="w-full p-2 border rounded">
+                    <button type="submit" class="w-full bg-green-500 text-white p-2 rounded">Rechercher</button>
+                </form>
+            </div>
+
+            <!-- Liste des livraisons -->
+            <div id="delivery-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Les livraisons seront injectées ici par JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/app.js"></script>
+</body>
+</html>
